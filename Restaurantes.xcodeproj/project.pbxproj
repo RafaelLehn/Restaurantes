@@ -15,6 +15,10 @@
 		434815952526AA7D0081979B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 434815932526AA7D0081979B /* LaunchScreen.storyboard */; };
 		434815A02526AA7E0081979B /* RestaurantesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348159F2526AA7E0081979B /* RestaurantesTests.swift */; };
 		434815AB2526AA7E0081979B /* RestaurantesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434815AA2526AA7E0081979B /* RestaurantesUITests.swift */; };
+		434815BD2527205D0081979B /* detailViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434815BB2527205D0081979B /* detailViewViewController.swift */; };
+		434815BE2527205D0081979B /* detailViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 434815BC2527205D0081979B /* detailViewViewController.xib */; };
+		434815C125280FE60081979B /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 434815C025280FE60081979B /* HeaderView.xib */; };
+		434815C3252817200081979B /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434815C2252817200081979B /* HeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,10 @@
 		434815A62526AA7E0081979B /* RestaurantesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RestaurantesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		434815AA2526AA7E0081979B /* RestaurantesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantesUITests.swift; sourceTree = "<group>"; };
 		434815AC2526AA7E0081979B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		434815BB2527205D0081979B /* detailViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailViewViewController.swift; sourceTree = "<group>"; };
+		434815BC2527205D0081979B /* detailViewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = detailViewViewController.xib; sourceTree = "<group>"; };
+		434815C025280FE60081979B /* HeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
+		434815C2252817200081979B /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +112,7 @@
 				4348158C2526AA7C0081979B /* ViewController.swift */,
 				4348158E2526AA7C0081979B /* Main.storyboard */,
 				434815912526AA7D0081979B /* Assets.xcassets */,
+				434815B8252720100081979B /* DetailView */,
 				434815932526AA7D0081979B /* LaunchScreen.storyboard */,
 				434815962526AA7D0081979B /* Info.plist */,
 			);
@@ -126,6 +135,25 @@
 				434815AC2526AA7E0081979B /* Info.plist */,
 			);
 			path = RestaurantesUITests;
+			sourceTree = "<group>";
+		};
+		434815B8252720100081979B /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				434815BB2527205D0081979B /* detailViewViewController.swift */,
+				434815BC2527205D0081979B /* detailViewViewController.xib */,
+				434815BF25280F8D0081979B /* VIew */,
+			);
+			path = DetailView;
+			sourceTree = "<group>";
+		};
+		434815BF25280F8D0081979B /* VIew */ = {
+			isa = PBXGroup;
+			children = (
+				434815C025280FE60081979B /* HeaderView.xib */,
+				434815C2252817200081979B /* HeaderView.swift */,
+			);
+			path = VIew;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,7 +261,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				434815952526AA7D0081979B /* LaunchScreen.storyboard in Resources */,
+				434815C125280FE60081979B /* HeaderView.xib in Resources */,
 				434815922526AA7D0081979B /* Assets.xcassets in Resources */,
+				434815BE2527205D0081979B /* detailViewViewController.xib in Resources */,
 				434815902526AA7C0081979B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,8 +289,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				434815C3252817200081979B /* HeaderView.swift in Sources */,
 				4348158D2526AA7C0081979B /* ViewController.swift in Sources */,
 				434815892526AA7C0081979B /* AppDelegate.swift in Sources */,
+				434815BD2527205D0081979B /* detailViewViewController.swift in Sources */,
 				4348158B2526AA7C0081979B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
