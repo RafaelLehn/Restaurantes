@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		430D8BCE253BE54600172E83 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430D8BCD253BE54600172E83 /* CustomTabBar.swift */; };
 		434815892526AA7C0081979B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434815882526AA7C0081979B /* AppDelegate.swift */; };
 		4348158B2526AA7C0081979B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348158A2526AA7C0081979B /* SceneDelegate.swift */; };
 		4348158D2526AA7C0081979B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348158C2526AA7C0081979B /* ViewController.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		430D8BCD253BE54600172E83 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		434815852526AA7C0081979B /* Restaurantes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Restaurantes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		434815882526AA7C0081979B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4348158A2526AA7C0081979B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		430D8BCC253BE51000172E83 /* CustomTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				430D8BCD253BE54600172E83 /* CustomTabBar.swift */,
+			);
+			path = CustomTabBar;
+			sourceTree = "<group>";
+		};
 		4348157C2526AA7C0081979B = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +124,7 @@
 				4348158C2526AA7C0081979B /* ViewController.swift */,
 				4348158E2526AA7C0081979B /* Main.storyboard */,
 				434815912526AA7D0081979B /* Assets.xcassets */,
+				430D8BCC253BE51000172E83 /* CustomTabBar */,
 				434815B8252720100081979B /* DetailView */,
 				43D024C0252D3BE700A0C264 /* MapView */,
 				434815932526AA7D0081979B /* LaunchScreen.storyboard */,
@@ -302,6 +313,7 @@
 			files = (
 				434815C3252817200081979B /* HeaderView.swift in Sources */,
 				43D024C2252D3C2200A0C264 /* MapViewController.swift in Sources */,
+				430D8BCE253BE54600172E83 /* CustomTabBar.swift in Sources */,
 				4348158D2526AA7C0081979B /* ViewController.swift in Sources */,
 				434815892526AA7C0081979B /* AppDelegate.swift in Sources */,
 				434815BD2527205D0081979B /* detailViewViewController.swift in Sources */,
