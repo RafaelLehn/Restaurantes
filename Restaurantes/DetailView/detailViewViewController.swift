@@ -7,21 +7,27 @@
 //
 
 import UIKit
+public protocol backDetailView: class {
+    func back()
+}
 
-class detailViewViewController: UIViewController {
+class detailViewViewController: UIViewController, backDetailView {
+    
+    func back() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
 
-        self.setupHeader()
+    @IBAction func backAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func setupHeader(){
-        var header = HeaderView.init()
-        
+    @IBAction func shareAction(_ sender: Any) {
     }
-
-
     /*
     // MARK: - Navigation
 

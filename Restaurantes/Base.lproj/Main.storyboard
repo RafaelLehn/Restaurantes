@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Cji-Nt-mqJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Cji-Nt-mqJ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -42,17 +42,31 @@
             </objects>
             <point key="canvasLocation" x="-672" y="117"/>
         </scene>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="r13-TY-j2r">
             <objects>
-                <viewController id="DQu-xh-t9M" sceneMemberID="viewController">
+                <viewController id="DQu-xh-t9M" customClass="MapViewController" customModule="Restaurantes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RVd-9h-Udr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PHH-52-7nK">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="TF2-xn-Bc0" firstAttribute="trailing" secondItem="PHH-52-7nK" secondAttribute="trailing" id="HBZ-4r-d7j"/>
+                            <constraint firstItem="PHH-52-7nK" firstAttribute="top" secondItem="TF2-xn-Bc0" secondAttribute="top" id="ioN-5w-LAC"/>
+                            <constraint firstItem="PHH-52-7nK" firstAttribute="leading" secondItem="TF2-xn-Bc0" secondAttribute="leading" id="s7c-9W-WwX"/>
+                            <constraint firstItem="TF2-xn-Bc0" firstAttribute="bottom" secondItem="PHH-52-7nK" secondAttribute="bottom" id="sFz-wt-ntf"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="TF2-xn-Bc0"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="map_off" selectedImage="map_on" id="6VA-wv-GJx"/>
+                    <connections>
+                        <outlet property="viewBackground" destination="RVd-9h-Udr" id="oGy-fS-OU3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3XO-cg-fWV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -83,7 +97,19 @@
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="tgV-fz-MA5">
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wgs-0E-ThL">
+                                                    <rect key="frame" x="19" y="39.5" width="62" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="Wgs-0E-ThL" firstAttribute="centerY" secondItem="tgV-fz-MA5" secondAttribute="centerY" id="4Cc-ga-TUQ"/>
+                                                <constraint firstItem="Wgs-0E-ThL" firstAttribute="centerX" secondItem="tgV-fz-MA5" secondAttribute="centerX" id="GhC-nK-6N3"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
                                 </cells>
@@ -106,7 +132,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="117"/>
+            <point key="canvasLocation" x="137.68115942028987" y="116.51785714285714"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="lrf-bf-roS">
