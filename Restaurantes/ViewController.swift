@@ -11,6 +11,7 @@ import SystemConfiguration
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITabBarControllerDelegate, URLSessionDelegate {
     
     
+    
     @IBOutlet var collectionView: UICollectionView!
     var delegateBack: backDetailView!
     var arrayss = [String:Any]()
@@ -20,16 +21,29 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     let shape = CAShapeLayer()
     let trackLayer = CAShapeLayer()
     
+    var arrayName = [String]()
+    var arrayType = [String]()
+    var ArrayReview = [Double]()
+    var ArrayId = [Int]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         collectionView.delegate = self
         collectionView.dataSource = self
+        if let layout = collectionView?.collectionViewLayout as? CustomCollectionView {
+          layout.delegate = self
+        }
         self.tabBarController?.delegate = self
         
         collectionView.refreshControl = refreshControl
+        registryCell()
         animation()
         servico()
+    }
+    
+    func registryCell(){
+        collectionView.register(UINib(nibName: "CustomCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "restaurantCell")
     }
     
     // MARK: animations
@@ -106,6 +120,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                     if let array = value as? [[String:Any]] {
                         for element in array {
                             if let name = element["name"] as? String {
+                                self.arrayName.append(element["name"] as! String)
+                                self.ArrayId.append(element["id"] as! Int)
+                                self.ArrayReview.append(element["review"] as! Double)
+                                self.arrayType.append(element["type"] as! String)
                                 self.totalCount += 1
                             }
                         }
@@ -160,9 +178,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "testcell", for: indexPath)
-        cell.contentView.backgroundColor = UIColor.gray
-        cell.contentView.layer.cornerRadius = 20.0
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "restaurantCell", for: indexPath)
+        cell.contentView.layer.cornerRadius = 15.0
         cell.contentView.layer.borderWidth = 1.0
 
         cell.contentView.layer.borderColor = UIColor.clear.cgColor
@@ -173,7 +190,60 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell.layer.shadowRadius = 2.0
         cell.layer.shadowOpacity = 1.0
         cell.layer.masksToBounds = false
-        cell.layer.shadowPath = UIBezierPath(roundedRect:cell.bounds, cornerRadius:cell.contentView.layer.cornerRadius).cgPath
+        let restaurantCell = cell as? CustomCollectionViewCell
+        let rating = String(ArrayReview[indexPath.item])
+        
+        restaurantCell?.lbNameRestaurant.text = arrayName[indexPath.item]
+        restaurantCell?.lbTypeRestaurant.text = arrayType[indexPath.item]
+        restaurantCell?.lbRatingRestaurant.text = rating
+        
+        let ratingNumber = Double(rating)
+        
+        if ratingNumber ?? 0.0 < 0.5 {
+            
+            restaurantCell?.star1.image = #imageLiteral(resourceName: "off")
+            restaurantCell?.star2.image = #imageLiteral(resourceName: "off")
+            restaurantCell?.star3.image = #imageLiteral(resourceName: "off")
+            restaurantCell?.star4.image = #imageLiteral(resourceName: "off")
+            restaurantCell?.star5.image = #imageLiteral(resourceName: "off")
+            
+        } else if ratingNumber ?? 0.5 < 1.5 {
+            
+            restaurantCell?.star1.image = #imageLiteral(resourceName: "on")
+        }
+        
+        else if ratingNumber ?? 1.5 < 2.5 {
+            
+            restaurantCell?.star1.image = #imageLiteral(resourceName: "on")
+            restaurantCell?.star2.image = #imageLiteral(resourceName: "on")
+        }
+        
+        else if ratingNumber ?? 2.5 < 3.5 {
+            
+            restaurantCell?.star1.image = #imageLiteral(resourceName: "on")
+            restaurantCell?.star2.image = #imageLiteral(resourceName: "on")
+            restaurantCell?.star3.image = #imageLiteral(resourceName: "on")
+        }
+        
+        else if ratingNumber ?? 3.5 < 4.5 {
+            
+            restaurantCell?.star1.image = #imageLiteral(resourceName: "on")
+            restaurantCell?.star2.image = #imageLiteral(resourceName: "on")
+            restaurantCell?.star3.image = #imageLiteral(resourceName: "on")
+            restaurantCell?.star4.image = #imageLiteral(resourceName: "on")
+       
+        } else if ratingNumber ?? 4.5 < 5.1 {
+            
+            restaurantCell?.star1.image = #imageLiteral(resourceName: "on")
+            restaurantCell?.star2.image = #imageLiteral(resourceName: "on")
+            restaurantCell?.star3.image = #imageLiteral(resourceName: "on")
+            restaurantCell?.star4.image = #imageLiteral(resourceName: "on")
+            restaurantCell?.star5.image = #imageLiteral(resourceName: "on")
+            
+        } else {
+            
+        }
+        
         return cell
     }
     
@@ -185,3 +255,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
 }
 
+extension ViewController: CollectionLayoutDelegate {
+  func collectionView(
+      _ collectionView: UICollectionView,
+      heightForPhotoAtIndexPath indexPath:IndexPath) -> CGFloat {
+    let randomInt = CGFloat.random(in: 218..<296)
+    return randomInt
+  }
+}
