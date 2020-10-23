@@ -1,21 +1,22 @@
 # Restaurantes
 
-## Descrição
+## Description
 
-A aplicação utiliza informações da API pública de estabelecimentos da Hotmart.
-Após isso será possivel obter o valor hash para utilizar ao fim da sua URL para pegar as informações necessárias.
+The application uses information from the public API of Hotmart establishments.
+After that it will be possible to obtain the hash value to use at the end of your URL to get the necessary information.
 
-## Instalação
+## Installation
 
-Basta clonar o repositório do projeto em sua máquina.
-É necessário o Xcode instalado com simulador ou um Iphone com a versão atualizada do sistema operacional(iOS 13.2).
+Just clone the project repository on your machine.
+It is necessary to have Xcode installed with a simulator or an Iphone with the updated version of the operating system (iOS 13.2).
 
-## Resultado
-Com a aplicação é possivel fazer a busca e ter o resultado com a lista de restaurantes em uma collection customizada.
-Ao clicar em um dos estabelecimentos é aberto uma nova tela com os detalhes e descrições do local.
-Há também uma TabBar para selecionar em qual tela deseja estar com uma animação sutil.
+## Result
 
-As requisições para o json são feitas de forma nativa através do URLSession.
-Como já havia utilizado o Alamofire antes me desafiei a fazer o mesmo sem utilizar Pods.
+With the application it is possible to search and have the result with the list of restaurants in a customized collection.
+Clicking on one of the establishments opens a new screen with details and descriptions of the place.
+There is also a TabBar to select which screen you want to be with a subtle animation.
 
-Existe um pequeno banco de imagens que são selecionadas de forma aleatória para os cards.
+The requests for json are made natively through the URLSession.
+As I had used Alamofire before, I challenged myself to do the same without using Pods.
+
+There is a small bank of images that are selected at random for the cards.
