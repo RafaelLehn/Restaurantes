@@ -13,6 +13,15 @@ public protocol backDetailView: class {
 
 class detailViewViewController: UIViewController, backDetailView {
     
+    var panGestureRecognizer: UIPanGestureRecognizer?
+    var originalPosition: CGPoint?
+    var currentPositionTouched: CGPoint?
+    @IBOutlet weak var star1: UIImageView!
+    @IBOutlet weak var star2: UIImageView!
+    @IBOutlet weak var star3: UIImageView!
+    @IBOutlet weak var star4: UIImageView!
+    @IBOutlet weak var star5: UIImageView!
+    
     func back() {
         self.dismiss(animated: true, completion: nil)
     }
@@ -20,8 +29,51 @@ class detailViewViewController: UIViewController, backDetailView {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupStars()
     }
-
+    
+    func setupStars(){
+        let ratingNumber = Double("3.5")
+        
+         if ratingNumber ?? 0.0 < 0.5 {
+             // nothing stars
+             
+         } else if ratingNumber ?? 0.5 < 1.5 {
+             
+             star1.image = #imageLiteral(resourceName: "on")
+         }
+         
+         else if ratingNumber ?? 1.5 < 2.5 {
+             
+             star1.image = #imageLiteral(resourceName: "on")
+             star2.image = #imageLiteral(resourceName: "on")
+         }
+         
+         else if ratingNumber ?? 2.5 < 3.5 {
+             
+             star1.image = #imageLiteral(resourceName: "on")
+             star2.image = #imageLiteral(resourceName: "on")
+             star3.image = #imageLiteral(resourceName: "on")
+         }
+         
+         else if ratingNumber ?? 3.5 < 4.5 {
+             
+//             star1.image = #imageLiteral(resourceName: "on")
+//             star2.image = #imageLiteral(resourceName: "on")
+//             star3.image = #imageLiteral(resourceName: "on")
+//             star4.image = #imageLiteral(resourceName: "on")
+        
+         } else if ratingNumber ?? 4.5 < 5.1 {
+             
+             star1.image = #imageLiteral(resourceName: "on")
+             star2.image = #imageLiteral(resourceName: "on")
+             star3.image = #imageLiteral(resourceName: "on")
+             star4.image = #imageLiteral(resourceName: "on")
+             star5.image = #imageLiteral(resourceName: "on")
+             
+         }
+    }
+    
     @IBAction func backAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }

@@ -143,8 +143,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
            }
         })
         task.resume()
-        
-        
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
@@ -201,12 +199,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         if ratingNumber ?? 0.0 < 0.5 {
             
-            restaurantCell?.star1.image = #imageLiteral(resourceName: "off")
-            restaurantCell?.star2.image = #imageLiteral(resourceName: "off")
-            restaurantCell?.star3.image = #imageLiteral(resourceName: "off")
-            restaurantCell?.star4.image = #imageLiteral(resourceName: "off")
-            restaurantCell?.star5.image = #imageLiteral(resourceName: "off")
-            
         } else if ratingNumber ?? 0.5 < 1.5 {
             
             restaurantCell?.star1.image = #imageLiteral(resourceName: "on")
@@ -240,8 +232,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             restaurantCell?.star4.image = #imageLiteral(resourceName: "on")
             restaurantCell?.star5.image = #imageLiteral(resourceName: "on")
             
-        } else {
-            
         }
         
         return cell
@@ -249,7 +239,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailView = detailViewViewController()
-        detailView.modalPresentationStyle = .overCurrentContext
+        detailView.modalPresentationStyle = .currentContext
         self.present(detailView, animated: true, completion: nil)
     }
 
