@@ -38,6 +38,8 @@ class detailViewViewController: UIViewController, URLSessionDelegate {
     var About = String()
     
     @IBOutlet weak var ivReview1: UIView!
+    @IBOutlet weak var ivReview2: UIView!
+    @IBOutlet weak var ivReview3: UIView!
     
     
     override func viewDidLoad() {
@@ -111,6 +113,16 @@ class detailViewViewController: UIViewController, URLSessionDelegate {
         ivReview1.layer.borderWidth = 2
         ivReview1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         ivReview1.layer.cornerRadius = 25
+        
+        
+        ivReview2.layer.borderWidth = 2
+        ivReview2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        ivReview2.layer.cornerRadius = 25
+        
+        
+        ivReview3.layer.borderWidth = 2
+        ivReview3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        ivReview3.layer.cornerRadius = 25
     }
     
     func setupStars(){
