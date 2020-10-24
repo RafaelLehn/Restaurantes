@@ -13,7 +13,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     
     @IBOutlet var collectionView: UICollectionView!
-    var delegateBack: backDetailView!
     var arrayss = [String:Any]()
     var keys = [String]()
     var totalCount = 0
@@ -147,9 +146,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
          let tabBarIndex = tabBarController.selectedIndex
-         if tabBarIndex != 0 {
-            self.delegateBack?.back()
-         }
     }
     
 
@@ -239,8 +235,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailView = detailViewViewController()
+        detailView.numberId = (indexPath.row + 1)
         detailView.modalPresentationStyle = .currentContext
         self.present(detailView, animated: true, completion: nil)
+        
     }
 
 }
