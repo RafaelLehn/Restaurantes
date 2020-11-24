@@ -10,20 +10,13 @@ import UIKit
 import SystemConfiguration
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITabBarControllerDelegate, URLSessionDelegate {
     
-    
-    
     @IBOutlet var collectionView: UICollectionView!
     var arrayss = [String:Any]()
     var keys = [String]()
-    var totalCount = 0
     let refreshControl = UIRefreshControl()
     let shape = CAShapeLayer()
     let trackLayer = CAShapeLayer()
-    
-    var arrayName = [String]()
-    var arrayType = [String]()
-    var ArrayReview = [Double]()
-    var ArrayId = [Int]()
+    var restaurant = [RestaurantModel(name: "", Id: 0, Review: 0.0, type: "")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +29,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.tabBarController?.delegate = self
         
         collectionView.refreshControl = refreshControl
+        self.restaurant.removeAll()
         registryCell()
         animation()
         servico()
@@ -59,24 +53,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         trackLayer.lineCap = .round
          
         view.layer.addSublayer(trackLayer)
-        
-//        let circularPath = UIBezierPath(arcCenter: center, radius: 80, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
+
         shape.path = circularPath.cgPath
-        
         shape.strokeColor = UIColor(red: 20/255, green: 173/255, blue: 184/255, alpha: 1).cgColor
         shape.lineWidth = 10
         shape.fillColor = UIColor.clear.cgColor
         shape.lineCap = .round
-        
         shape.strokeEnd = 0
         view.layer.addSublayer(shape)
     }
     
     fileprivate func animateCircle() {
         let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        
         basicAnimation.toValue = 1
-        
         basicAnimation.duration = 2
         basicAnimation.fillMode = .forwards
         basicAnimation.isRemovedOnCompletion = false
@@ -119,16 +108,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                     if let array = value as? [[String:Any]] {
                         for element in array {
                             if let name = element["name"] as? String {
-                                self.arrayName.append(element["name"] as! String)
-                                self.ArrayId.append(element["id"] as! Int)
-                                self.ArrayReview.append(element["review"] as! Double)
-                                self.arrayType.append(element["type"] as! String)
-                                self.totalCount += 1
+                                self.restaurant.append(RestaurantModel(name: element["name"] as! String,
+                                Id: element["id"] as! Int,
+                                Review: element["review"] as! Double,
+                                type: element["type"] as! String))
                             }
                         }
                     }
                 }
-                print(self.totalCount)
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                     self.shape.isHidden = true
@@ -145,7 +132,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-         let tabBarIndex = tabBarController.selectedIndex
+        _ = tabBarController.selectedIndex
     }
     
 
@@ -168,7 +155,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return totalCount
+        return restaurant.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -185,52 +172,74 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell.layer.shadowOpacity = 1.0
         cell.layer.masksToBounds = false
         let restaurantCell = cell as? CustomCollectionViewCell
-        let rating = String(ArrayReview[indexPath.item])
+        let rating = restaurant[indexPath.item].Review
         
-        restaurantCell?.lbNameRestaurant.text = arrayName[indexPath.item]
-        restaurantCell?.lbTypeRestaurant.text = arrayType[indexPath.item]
-        restaurantCell?.lbRatingRestaurant.text = rating
+        restaurantCell?.lbNameRestaurant.text = restaurant[indexPath.item].name
+        restaurantCell?.lbTypeRestaurant.text = restaurant[indexPath.item].type
+        restaurantCell?.lbRatingRestaurant.text = String(rating)
         
         let ratingNumber = Double(rating)
         
-        if ratingNumber ?? 0.0 < 0.5 {
-            
-        } else if ratingNumber ?? 0.5 < 1.5 {
-            
-            restaurantCell?.star1.image = #imageLiteral(resourceName: "on")
-        }
-        
-        else if ratingNumber ?? 1.5 < 2.5 {
-            
-            restaurantCell?.star1.image = #imageLiteral(resourceName: "on")
-            restaurantCell?.star2.image = #imageLiteral(resourceName: "on")
-        }
-        
-        else if ratingNumber ?? 2.5 < 3.5 {
-            
-            restaurantCell?.star1.image = #imageLiteral(resourceName: "on")
-            restaurantCell?.star2.image = #imageLiteral(resourceName: "on")
-            restaurantCell?.star3.image = #imageLiteral(resourceName: "on")
-        }
-        
-        else if ratingNumber ?? 3.5 < 4.5 {
-            
-            restaurantCell?.star1.image = #imageLiteral(resourceName: "on")
-            restaurantCell?.star2.image = #imageLiteral(resourceName: "on")
-            restaurantCell?.star3.image = #imageLiteral(resourceName: "on")
-            restaurantCell?.star4.image = #imageLiteral(resourceName: "on")
-       
-        } else if ratingNumber ?? 4.5 < 5.1 {
-            
-            restaurantCell?.star1.image = #imageLiteral(resourceName: "on")
-            restaurantCell?.star2.image = #imageLiteral(resourceName: "on")
-            restaurantCell?.star3.image = #imageLiteral(resourceName: "on")
-            restaurantCell?.star4.image = #imageLiteral(resourceName: "on")
-            restaurantCell?.star5.image = #imageLiteral(resourceName: "on")
-            
-        }
+        newRating(number: ratingNumber, restaurantCell: restaurantCell!)
         
         return cell
+    }
+    
+    func newRating(number: Double, restaurantCell: CustomCollectionViewCell){
+        
+        if number ?? 0.0 < 0.5 {
+             
+             restaurantCell.star1.image = #imageLiteral(resourceName: "off")
+             restaurantCell.star2.image = #imageLiteral(resourceName: "off")
+             restaurantCell.star3.image = #imageLiteral(resourceName: "off")
+             restaurantCell.star4.image = #imageLiteral(resourceName: "off")
+             restaurantCell.star5.image = #imageLiteral(resourceName: "off")
+             
+         } else if number ?? 0.5 < 1.5 {
+             
+             restaurantCell.star1.image = #imageLiteral(resourceName: "on")
+             restaurantCell.star2.image = #imageLiteral(resourceName: "off")
+             restaurantCell.star3.image = #imageLiteral(resourceName: "off")
+             restaurantCell.star4.image = #imageLiteral(resourceName: "off")
+             restaurantCell.star5.image = #imageLiteral(resourceName: "off")
+         }
+         
+         else if number ?? 1.5 < 2.5 {
+             
+             restaurantCell.star1.image = #imageLiteral(resourceName: "on")
+             restaurantCell.star2.image = #imageLiteral(resourceName: "on")
+             restaurantCell.star3.image = #imageLiteral(resourceName: "off")
+             restaurantCell.star4.image = #imageLiteral(resourceName: "off")
+             restaurantCell.star5.image = #imageLiteral(resourceName: "off")
+         }
+         
+         else if number ?? 2.5 < 3.5 {
+             
+             restaurantCell.star1.image = #imageLiteral(resourceName: "on")
+             restaurantCell.star2.image = #imageLiteral(resourceName: "on")
+             restaurantCell.star3.image = #imageLiteral(resourceName: "on")
+             restaurantCell.star4.image = #imageLiteral(resourceName: "off")
+             restaurantCell.star5.image = #imageLiteral(resourceName: "off")
+         }
+         
+         else if number ?? 3.5 < 4.5 {
+             
+             restaurantCell.star1.image = #imageLiteral(resourceName: "on")
+             restaurantCell.star2.image = #imageLiteral(resourceName: "on")
+             restaurantCell.star3.image = #imageLiteral(resourceName: "on")
+             restaurantCell.star4.image = #imageLiteral(resourceName: "on")
+             restaurantCell.star5.image = #imageLiteral(resourceName: "off")
+        
+         } else if number ?? 4.5 < 5.1 {
+             
+             restaurantCell.star1.image = #imageLiteral(resourceName: "on")
+             restaurantCell.star2.image = #imageLiteral(resourceName: "on")
+             restaurantCell.star3.image = #imageLiteral(resourceName: "on")
+             restaurantCell.star4.image = #imageLiteral(resourceName: "on")
+             restaurantCell.star5.image = #imageLiteral(resourceName: "on")
+             
+         }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

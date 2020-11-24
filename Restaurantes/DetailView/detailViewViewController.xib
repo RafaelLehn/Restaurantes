@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="detailViewViewController" customModule="Restaurantes" customModuleProvider="target">
             <connections>
+                <outlet property="collectionImages" destination="ca1-bX-KNi" id="E7d-Jv-9ki"/>
                 <outlet property="imvRestaurant" destination="cIY-jK-16G" id="ngt-dO-nTo"/>
                 <outlet property="ivReview1" destination="PfS-6c-bdZ" id="5bn-1D-nbw"/>
                 <outlet property="ivReview2" destination="CRj-nI-w61" id="a1r-jX-HES"/>
@@ -180,7 +181,7 @@
                                         </label>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ca1-bX-KNi">
                                             <rect key="frame" x="26" y="77.333333333333314" width="388" height="60"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <color key="backgroundColor" red="0.91926938300000005" green="0.387078017" blue="0.46666151290000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="60" id="T4w-uA-I4a"/>
                                             </constraints>

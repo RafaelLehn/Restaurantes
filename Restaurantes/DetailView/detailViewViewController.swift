@@ -8,7 +8,8 @@
 
 import UIKit
 
-class detailViewViewController: UIViewController, URLSessionDelegate {
+class detailViewViewController: UIViewController, URLSessionDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+    
     
     var panGestureRecognizer: UIPanGestureRecognizer?
     var originalPosition: CGPoint?
@@ -25,6 +26,7 @@ class detailViewViewController: UIViewController, URLSessionDelegate {
     @IBOutlet weak var lbTime: UILabel!
     @IBOutlet weak var lbPhone: UILabel!
     @IBOutlet weak var lbLocation: UILabel!
+    @IBOutlet weak var collectionImages: UICollectionView!
     
     public var numberId: Int!
     var arrayss = [String:Any]()
@@ -44,6 +46,10 @@ class detailViewViewController: UIViewController, URLSessionDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionImages.delegate = self
+        collectionImages.dataSource = self
+        
+        collectionImages.register(UINib(nibName: "CustomCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "restaurantCell")
         servico()
         setupReview()
     }
@@ -166,6 +172,15 @@ class detailViewViewController: UIViewController, URLSessionDelegate {
              star5.image = #imageLiteral(resourceName: "on")
              
          }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionImages.dequeueReusableCell(withReuseIdentifier: "restaurantCell", for: indexPath) 
+        return cell
     }
     
     @IBAction func backAction(_ sender: Any) {
