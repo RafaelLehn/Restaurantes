@@ -42,7 +42,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Sh-5I-YAI">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image-1" translatesAutoresizingMaskIntoConstraints="NO" id="cIY-jK-16G">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cIY-jK-16G">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9rW-0K-c6F">
@@ -673,7 +673,6 @@
     <resources>
         <image name="arrow_back" width="48" height="48"/>
         <image name="arrows" width="24" height="22"/>
-        <image name="image-1" width="375.5" height="243"/>
         <image name="off" width="22" height="20"/>
         <image name="on" width="22" height="20"/>
         <image name="phone" width="40" height="40"/>

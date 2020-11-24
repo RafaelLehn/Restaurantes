@@ -38,6 +38,7 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     var Adress = String()
     var Phone = String()
     var About = String()
+    public var bacana = UIImage()
     
     @IBOutlet weak var ivReview1: UIView!
     @IBOutlet weak var ivReview2: UIView!
@@ -52,6 +53,7 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
         collectionImages.register(UINib(nibName: "CustomCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "restaurantCell")
         servico()
         setupReview()
+        setupImage()
     }
     
     private func servico(){
@@ -172,6 +174,10 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
              star5.image = #imageLiteral(resourceName: "on")
              
          }
+    }
+    
+    func setupImage(){
+        imvRestaurant.image = bacana
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
