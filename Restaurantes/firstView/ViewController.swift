@@ -107,7 +107,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 for value in json.values {
                     if let array = value as? [[String:Any]] {
                         for element in array {
-                            if let name = element["name"] as? String {
+                            if (element["name"] as? String) != nil {
                                 self.restaurant.append(RestaurantModel(name: element["name"] as! String,
                                 Id: element["id"] as! Int,
                                 Review: element["review"] as! Double,
@@ -187,7 +187,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func newRating(number: Double, restaurantCell: CustomCollectionViewCell){
         
-        if number ?? 0.0 < 0.5 {
+        if number < 0.5 {
              
              restaurantCell.star1.image = #imageLiteral(resourceName: "off")
              restaurantCell.star2.image = #imageLiteral(resourceName: "off")
@@ -195,34 +195,31 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
              restaurantCell.star4.image = #imageLiteral(resourceName: "off")
              restaurantCell.star5.image = #imageLiteral(resourceName: "off")
              
-         } else if number ?? 0.5 < 1.5 {
+         } else if number < 1.5 {
              
              restaurantCell.star1.image = #imageLiteral(resourceName: "on")
              restaurantCell.star2.image = #imageLiteral(resourceName: "off")
              restaurantCell.star3.image = #imageLiteral(resourceName: "off")
              restaurantCell.star4.image = #imageLiteral(resourceName: "off")
              restaurantCell.star5.image = #imageLiteral(resourceName: "off")
-         }
-         
-         else if number ?? 1.5 < 2.5 {
+            
+         } else if number < 2.5 {
              
              restaurantCell.star1.image = #imageLiteral(resourceName: "on")
              restaurantCell.star2.image = #imageLiteral(resourceName: "on")
              restaurantCell.star3.image = #imageLiteral(resourceName: "off")
              restaurantCell.star4.image = #imageLiteral(resourceName: "off")
              restaurantCell.star5.image = #imageLiteral(resourceName: "off")
-         }
-         
-         else if number ?? 2.5 < 3.5 {
+            
+        } else if number < 3.5 {
              
              restaurantCell.star1.image = #imageLiteral(resourceName: "on")
              restaurantCell.star2.image = #imageLiteral(resourceName: "on")
              restaurantCell.star3.image = #imageLiteral(resourceName: "on")
              restaurantCell.star4.image = #imageLiteral(resourceName: "off")
              restaurantCell.star5.image = #imageLiteral(resourceName: "off")
-         }
-         
-         else if number ?? 3.5 < 4.5 {
+            
+         } else if number < 4.5 {
              
              restaurantCell.star1.image = #imageLiteral(resourceName: "on")
              restaurantCell.star2.image = #imageLiteral(resourceName: "on")
@@ -230,7 +227,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
              restaurantCell.star4.image = #imageLiteral(resourceName: "on")
              restaurantCell.star5.image = #imageLiteral(resourceName: "off")
         
-         } else if number ?? 4.5 < 5.1 {
+         } else if number < 5.1 {
              
              restaurantCell.star1.image = #imageLiteral(resourceName: "on")
              restaurantCell.star2.image = #imageLiteral(resourceName: "on")
@@ -239,7 +236,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
              restaurantCell.star5.image = #imageLiteral(resourceName: "on")
              
          }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
