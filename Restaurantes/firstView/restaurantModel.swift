@@ -14,3 +14,12 @@ struct RestaurantModel {
     let Review: Double
     let type: String
 }
+
+struct RestaurantDetailModel {
+    var Name: String
+    var Category: String
+    var Review: Double
+    var Adress: String
+    var Phone: String
+    var About: String
+}

@@ -20,6 +20,7 @@
                 <outlet property="lbPhone" destination="s8x-E6-Dqa" id="0Wz-vp-8Ob"/>
                 <outlet property="lbRating" destination="GiQ-B4-LTh" id="PQE-RD-LZY"/>
                 <outlet property="lbTime" destination="AaT-Y4-ysn" id="g4f-ta-aJH"/>
+                <outlet property="sharedButton" destination="st4-Ka-cit" id="R37-Kw-Kkz"/>
                 <outlet property="star1" destination="QXn-B3-uRq" id="KQu-DA-Q6p"/>
                 <outlet property="star2" destination="qiN-T9-EhC" id="X0r-Sh-a1X"/>
                 <outlet property="star3" destination="A47-jN-s1U" id="Yb9-F1-S7J"/>

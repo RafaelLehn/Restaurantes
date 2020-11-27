@@ -22,22 +22,16 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     @IBOutlet weak var lbName: UILabel!
     @IBOutlet weak var lbRating: UILabel!
     @IBOutlet weak var imvRestaurant: UIImageView!
+    @IBOutlet weak var sharedButton: UIButton!
     @IBOutlet weak var lbAbout: UILabel!
     @IBOutlet weak var lbTime: UILabel!
     @IBOutlet weak var lbPhone: UILabel!
     @IBOutlet weak var lbLocation: UILabel!
     @IBOutlet weak var collectionImages: UICollectionView!
+    var Location: String!
     
     public var numberId: Int!
-    var arrayss = [String:Any]()
-    var keys = [String]()
-    
-    var Name = String()
-    var Category = String()
-    var Review = Double()
-    var Adress = String()
-    var Phone = String()
-    var About = String()
+    var restaurantDetail = RestaurantDetailModel(Name: "", Category: "", Review: 0.0, Adress: "", Phone: "", About: "")
     public var bacana = UIImage()
     
     @IBOutlet weak var ivReview1: UIView!
@@ -50,6 +44,7 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
         collectionImages.delegate = self
         collectionImages.dataSource = self
         
+        sharedButton.isEnabled = false
         collectionImages.register(UINib(nibName: "CustomCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "restaurantCell")
         servico()
         setupReview()
@@ -82,18 +77,12 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
               //create json object from data\
               if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
                  print(json)
-                
-                self.arrayss = json
-                self.keys = Array(json.keys)
-                
-                self.Name = (json["name"] as! String)
-                self.Review = (json["review"] as! Double)
-                self.Category = (json["type"] as! String)
-                self.Adress = (json["adress"] as! String)
-                self.About = (json["about"] as! String)
-                self.Phone = (json["phone"] as! String)
-
-                
+                self.restaurantDetail.Name = (json["name"] as! String)
+                self.restaurantDetail.Review = (json["review"] as! Double)
+                self.restaurantDetail.Category = (json["type"] as! String)
+                self.restaurantDetail.Adress = (json["adress"] as! String)
+                self.restaurantDetail.About = (json["about"] as! String)
+                self.restaurantDetail.Phone = (json["phone"] as! String)
               }
             DispatchQueue.main.async {
                 self.setupStars()
@@ -107,14 +96,15 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     }
     
     private func setupInfo() {
-        lbName.text = Name
-        lbRating.text = String(Review)
-        lbAbout.text = About
+        lbName.text = restaurantDetail.Name
+        lbRating.text = String(restaurantDetail.Review)
+        lbAbout.text = restaurantDetail.About
         lbTime.text = "legal"
-        lbPhone.text = Phone
+        lbPhone.text = restaurantDetail.Phone
         
-        let newString = Adress.replacingOccurrences(of: ",", with: ", ", options: .literal, range: nil)
-        lbLocation.text = newString.replacingOccurrences(of: "Minas Gerais", with: "MG", options: .literal, range: nil)
+        Location = restaurantDetail.Adress.replacingOccurrences(of: ",", with: ", ", options: .literal, range: nil)
+        lbLocation.text = Location.replacingOccurrences(of: "Minas Gerais", with: "MG", options: .literal, range: nil)
+        sharedButton.isEnabled = true
     }
     
     private func setupReview(){
@@ -134,7 +124,7 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     }
     
     func setupStars(){
-        var ratingNumber = Review
+        var ratingNumber = restaurantDetail.Review
         ratingNumber.round()
         displayStar(number: ratingNumber)
     }
@@ -210,16 +200,14 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     }
     
     @IBAction func shareAction(_ sender: Any) {
-    }
-    /*
-    // MARK: - Navigation
+        let text = "Restaurante - \(restaurantDetail.Name)    \nLocalização - \(Location!)     \nTelefone - \(restaurantDetail.Phone)     \nHorarios - "
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        // set up activity view controller
+        let textToShare = [ text ]
+        let activityViewController = UIActivityViewController(activityItems: textToShare , applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        self.present(activityViewController, animated: true, completion: nil)
     }
-    */
 
 }
 
