@@ -8,15 +8,16 @@
 
 import UIKit
 import SystemConfiguration
+
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITabBarControllerDelegate, URLSessionDelegate {
     
     @IBOutlet var collectionView: UICollectionView!
-    var arrayss = [String:Any]()
-    var keys = [String]()
+    var imageList = [String]()
     let refreshControl = UIRefreshControl()
     let shape = CAShapeLayer()
     let trackLayer = CAShapeLayer()
     var restaurant = [RestaurantModel(name: "", Id: 0, Review: 0.0, type: "")]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,9 +102,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
               //create json object from data\
               if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
                  print(json)
-                
-                self.arrayss = json
-                self.keys = Array(json.keys)
+        
                 for value in json.values {
                     if let array = value as? [[String:Any]] {
                         for element in array {
@@ -173,19 +172,21 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell.layer.masksToBounds = false
         let restaurantCell = cell as? CustomCollectionViewCell
         let rating = restaurant[indexPath.item].Review
-        
+        if imageList.count < restaurant.count{
+            imageList.append(restaurantCell!.orderList)
+        }
         restaurantCell?.lbNameRestaurant.text = restaurant[indexPath.item].name
         restaurantCell?.lbTypeRestaurant.text = restaurant[indexPath.item].type
         restaurantCell?.lbRatingRestaurant.text = String(rating)
         
         let ratingNumber = Double(rating)
         
-        newRating(number: ratingNumber, restaurantCell: restaurantCell!)
+        displayStar(number: ratingNumber, restaurantCell: restaurantCell!)
         
         return cell
     }
     
-    func newRating(number: Double, restaurantCell: CustomCollectionViewCell?){
+    func displayStar(number: Double, restaurantCell: CustomCollectionViewCell?){
         
         if number < 0.5 {
              
@@ -240,7 +241,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailView = detailViewViewController()
-        
+        detailView.bacana = UIImage(named: imageList[indexPath.row])!
         detailView.numberId = (indexPath.row + 1)
         detailView.modalPresentationStyle = .currentContext
         self.present(detailView, animated: true, completion: nil)

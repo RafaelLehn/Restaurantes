@@ -136,36 +136,52 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     func setupStars(){
         var ratingNumber = Review
         ratingNumber.round()
+        displayStar(number: ratingNumber)
+    }
+    
+    func displayStar(number: Double){
         
-         if ratingNumber ?? 0.0 < 0.5 {
-             // nothing stars
+        if number < 0.5 {
              
-         } else if ratingNumber ?? 0.5 < 1.5 {
+             star1.image = #imageLiteral(resourceName: "off")
+             star2.image = #imageLiteral(resourceName: "off")
+             star3.image = #imageLiteral(resourceName: "off")
+             star4.image = #imageLiteral(resourceName: "off")
+             star5.image = #imageLiteral(resourceName: "off")
              
-            self.star1.image = #imageLiteral(resourceName: "on")
-         }
-         
-         else if ratingNumber ?? 1.5 < 2.5 {
+         } else if number < 1.5 {
+             
+             star1.image = #imageLiteral(resourceName: "on")
+             star2.image = #imageLiteral(resourceName: "off")
+             star3.image = #imageLiteral(resourceName: "off")
+             star4.image = #imageLiteral(resourceName: "off")
+             star5.image = #imageLiteral(resourceName: "off")
+            
+         } else if number < 2.5 {
              
              star1.image = #imageLiteral(resourceName: "on")
              star2.image = #imageLiteral(resourceName: "on")
-         }
-         
-         else if ratingNumber ?? 2.5 < 3.5 {
+             star3.image = #imageLiteral(resourceName: "off")
+             star4.image = #imageLiteral(resourceName: "off")
+             star5.image = #imageLiteral(resourceName: "off")
+            
+        } else if number < 3.5 {
              
              star1.image = #imageLiteral(resourceName: "on")
              star2.image = #imageLiteral(resourceName: "on")
              star3.image = #imageLiteral(resourceName: "on")
-         }
-         
-         else if ratingNumber ?? 3.5 < 4.5 {
+             star4.image = #imageLiteral(resourceName: "off")
+             star5.image = #imageLiteral(resourceName: "off")
+            
+         } else if number < 4.5 {
              
              star1.image = #imageLiteral(resourceName: "on")
              star2.image = #imageLiteral(resourceName: "on")
              star3.image = #imageLiteral(resourceName: "on")
              star4.image = #imageLiteral(resourceName: "on")
+             star5.image = #imageLiteral(resourceName: "off")
         
-         } else if ratingNumber ?? 4.5 < 5.1 {
+         } else if number < 5.1 {
              
              star1.image = #imageLiteral(resourceName: "on")
              star2.image = #imageLiteral(resourceName: "on")
