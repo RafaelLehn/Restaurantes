@@ -9,7 +9,7 @@
 import UIKit
 import SystemConfiguration
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITabBarControllerDelegate, URLSessionDelegate {
+class ViewController: UIViewController, UITabBarControllerDelegate, URLSessionDelegate {
     
     @IBOutlet var collectionView: UICollectionView!
     var imageList = [String]()
@@ -131,10 +131,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        _ = tabBarController.selectedIndex
+           _ = tabBarController.selectedIndex
+        
     }
-    
+}
 
+extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func setupCollection(){
         if let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout{
                 layout.minimumLineSpacing = 10
@@ -247,7 +249,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.present(detailView, animated: true, completion: nil)
         
     }
-
 }
 
 extension ViewController: CollectionLayoutDelegate {
