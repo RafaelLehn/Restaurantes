@@ -29,6 +29,8 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     @IBOutlet weak var lbLocation: UILabel!
     @IBOutlet weak var collectionImages: UICollectionView!
     var Location: String!
+    var loadview: UIView!
+    var schedule: Dictionary<String,Any> = [:]
     
     public var numberId: Int!
     var restaurantDetail = RestaurantDetailModel(Name: "", Category: "", Review: 0.0, Adress: "", Phone: "", About: "")
@@ -38,6 +40,8 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     @IBOutlet weak var ivReview2: UIView!
     @IBOutlet weak var ivReview3: UIView!
     
+    let shape = CAShapeLayer()
+    let trackLayer = CAShapeLayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,12 +50,54 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
         
         sharedButton.isEnabled = false
         collectionImages.register(UINib(nibName: "CustomCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "restaurantCell")
+        loadingView()
         servico()
         setupReview()
         setupImage()
     }
     
+    private func loadingView(){
+        loadview = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - 600));
+        loadview.backgroundColor = .white
+        loadview.alpha = 0.8
+        view.addSubview(loadview)
+        animation()
+    }
+    
+    func animation(){
+        let center = loadview.center
+        
+        let circularPath = UIBezierPath(arcCenter: center, radius: 80, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
+        trackLayer.path = circularPath.cgPath
+        
+        trackLayer.strokeColor = UIColor.lightGray.cgColor
+        trackLayer.lineWidth = 10
+        trackLayer.fillColor = UIColor.clear.cgColor
+        trackLayer.lineCap = .round
+         
+        view.layer.addSublayer(trackLayer)
+
+        shape.path = circularPath.cgPath
+        shape.strokeColor = UIColor(red: 20/255, green: 173/255, blue: 184/255, alpha: 1).cgColor
+        shape.lineWidth = 10
+        shape.fillColor = UIColor.clear.cgColor
+        shape.lineCap = .round
+        shape.strokeEnd = 0
+        view.layer.addSublayer(shape)
+    }
+    
+    fileprivate func animateCircle() {
+        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        basicAnimation.toValue = 1
+        basicAnimation.duration = 2
+        basicAnimation.fillMode = .forwards
+        basicAnimation.isRemovedOnCompletion = false
+        
+        shape.add(basicAnimation, forKey: "urSoBasic")
+    }
+    
     private func servico(){
+        animateCircle()
         //create the url with NSURL
         let url = URL(string: "https://hotmart-mobile-app.herokuapp.com/locations/\(numberId!)")! //change the url
         //create the session object
@@ -76,17 +122,30 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
            do {
               //create json object from data\
               if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
-                 print(json)
                 self.restaurantDetail.Name = (json["name"] as! String)
                 self.restaurantDetail.Review = (json["review"] as! Double)
                 self.restaurantDetail.Category = (json["type"] as! String)
                 self.restaurantDetail.Adress = (json["adress"] as! String)
                 self.restaurantDetail.About = (json["about"] as! String)
                 self.restaurantDetail.Phone = (json["phone"] as! String)
+                
+                self.schedule = json["schedule"] as! Dictionary<String, Any>
+                
+                print(self.schedule)
+                
+                let monday = self.schedule.keys
+                print(monday)
+                
               }
             DispatchQueue.main.async {
+                self.shape.isHidden = true
+                self.trackLayer.isHidden = true
                 self.setupStars()
                 self.setupInfo()
+                self.loadview.isHidden = true
+                for (key, value) in self.schedule{
+                    print("\(key) and \(value)")
+                }
             }
            } catch let error {
                 print(error.localizedDescription)
