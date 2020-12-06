@@ -31,6 +31,7 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     var Location: String!
     var loadview: UIView!
     var schedule: Dictionary<String,Any> = [:]
+    var schedule2: Array<Any> = []
     
     public var numberId: Int!
     var restaurantDetail = RestaurantDetailModel(Name: "", Category: "", Review: 0.0, Adress: "", Phone: "", About: "")
@@ -128,10 +129,15 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
                 self.restaurantDetail.Adress = (json["adress"] as! String)
                 self.restaurantDetail.About = (json["about"] as! String)
                 self.restaurantDetail.Phone = (json["phone"] as! String)
+                if (self.numberId == 1) {
+                    self.schedule2 = json["schedule"] as! Array<Any>
+                } else {
+                    self.schedule = json["schedule"] as! Dictionary<String, Any>
+                }
                 
-                self.schedule = json["schedule"] as! Dictionary<String, Any>
                 
                 print(self.schedule)
+                print(self.schedule2)
                 
                 let monday = self.schedule.keys
                 print(monday)
@@ -185,60 +191,8 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     func setupStars(){
         var ratingNumber = restaurantDetail.Review
         ratingNumber.round()
-        displayStar(number: ratingNumber)
-    }
-    
-    func displayStar(number: Double){
-        
-        if number < 0.5 {
-             
-             star1.image = #imageLiteral(resourceName: "off")
-             star2.image = #imageLiteral(resourceName: "off")
-             star3.image = #imageLiteral(resourceName: "off")
-             star4.image = #imageLiteral(resourceName: "off")
-             star5.image = #imageLiteral(resourceName: "off")
-             
-         } else if number < 1.5 {
-             
-             star1.image = #imageLiteral(resourceName: "on")
-             star2.image = #imageLiteral(resourceName: "off")
-             star3.image = #imageLiteral(resourceName: "off")
-             star4.image = #imageLiteral(resourceName: "off")
-             star5.image = #imageLiteral(resourceName: "off")
-            
-         } else if number < 2.5 {
-             
-             star1.image = #imageLiteral(resourceName: "on")
-             star2.image = #imageLiteral(resourceName: "on")
-             star3.image = #imageLiteral(resourceName: "off")
-             star4.image = #imageLiteral(resourceName: "off")
-             star5.image = #imageLiteral(resourceName: "off")
-            
-        } else if number < 3.5 {
-             
-             star1.image = #imageLiteral(resourceName: "on")
-             star2.image = #imageLiteral(resourceName: "on")
-             star3.image = #imageLiteral(resourceName: "on")
-             star4.image = #imageLiteral(resourceName: "off")
-             star5.image = #imageLiteral(resourceName: "off")
-            
-         } else if number < 4.5 {
-             
-             star1.image = #imageLiteral(resourceName: "on")
-             star2.image = #imageLiteral(resourceName: "on")
-             star3.image = #imageLiteral(resourceName: "on")
-             star4.image = #imageLiteral(resourceName: "on")
-             star5.image = #imageLiteral(resourceName: "off")
-        
-         } else if number < 5.1 {
-             
-             star1.image = #imageLiteral(resourceName: "on")
-             star2.image = #imageLiteral(resourceName: "on")
-             star3.image = #imageLiteral(resourceName: "on")
-             star4.image = #imageLiteral(resourceName: "on")
-             star5.image = #imageLiteral(resourceName: "on")
-             
-         }
+        let star = SelfStar()
+        star.selfNewStar(reviewNote: ratingNumber, firstStar: star1, secondStar: star2, thirdStar: star3, fourtStar: star4, fiveStar: star5)
     }
     
     func setupImage(){

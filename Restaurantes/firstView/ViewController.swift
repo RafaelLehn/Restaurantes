@@ -183,62 +183,10 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         
         let ratingNumber = Double(rating)
         
-        displayStar(number: ratingNumber, restaurantCell: restaurantCell!)
+        let star = SelfStar()
+        star.selfNewStar(reviewNote: ratingNumber, firstStar: restaurantCell!.star1, secondStar: restaurantCell!.star2, thirdStar: restaurantCell!.star3, fourtStar: restaurantCell!.star4, fiveStar: restaurantCell!.star5)
         
         return cell
-    }
-    
-    func displayStar(number: Double, restaurantCell: CustomCollectionViewCell?){
-        
-        if number < 0.5 {
-             
-             restaurantCell?.star1.image = #imageLiteral(resourceName: "off")
-             restaurantCell?.star2.image = #imageLiteral(resourceName: "off")
-             restaurantCell?.star3.image = #imageLiteral(resourceName: "off")
-             restaurantCell?.star4.image = #imageLiteral(resourceName: "off")
-             restaurantCell?.star5.image = #imageLiteral(resourceName: "off")
-             
-         } else if number < 1.5 {
-             
-             restaurantCell?.star1.image = #imageLiteral(resourceName: "on")
-             restaurantCell?.star2.image = #imageLiteral(resourceName: "off")
-             restaurantCell?.star3.image = #imageLiteral(resourceName: "off")
-             restaurantCell?.star4.image = #imageLiteral(resourceName: "off")
-             restaurantCell?.star5.image = #imageLiteral(resourceName: "off")
-            
-         } else if number < 2.5 {
-             
-             restaurantCell?.star1.image = #imageLiteral(resourceName: "on")
-             restaurantCell?.star2.image = #imageLiteral(resourceName: "on")
-             restaurantCell?.star3.image = #imageLiteral(resourceName: "off")
-             restaurantCell?.star4.image = #imageLiteral(resourceName: "off")
-             restaurantCell?.star5.image = #imageLiteral(resourceName: "off")
-            
-        } else if number < 3.5 {
-             
-             restaurantCell?.star1.image = #imageLiteral(resourceName: "on")
-             restaurantCell?.star2.image = #imageLiteral(resourceName: "on")
-             restaurantCell?.star3.image = #imageLiteral(resourceName: "on")
-             restaurantCell?.star4.image = #imageLiteral(resourceName: "off")
-             restaurantCell?.star5.image = #imageLiteral(resourceName: "off")
-            
-         } else if number < 4.5 {
-             
-             restaurantCell?.star1.image = #imageLiteral(resourceName: "on")
-             restaurantCell?.star2.image = #imageLiteral(resourceName: "on")
-             restaurantCell?.star3.image = #imageLiteral(resourceName: "on")
-             restaurantCell?.star4.image = #imageLiteral(resourceName: "on")
-             restaurantCell?.star5.image = #imageLiteral(resourceName: "off")
-        
-         } else if number < 5.1 {
-             
-             restaurantCell?.star1.image = #imageLiteral(resourceName: "on")
-             restaurantCell?.star2.image = #imageLiteral(resourceName: "on")
-             restaurantCell?.star3.image = #imageLiteral(resourceName: "on")
-             restaurantCell?.star4.image = #imageLiteral(resourceName: "on")
-             restaurantCell?.star5.image = #imageLiteral(resourceName: "on")
-             
-         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
