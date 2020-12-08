@@ -18,6 +18,7 @@ class PerfilViewController: UIViewController {
     var lbMyProfession: UILabel!
     var lbGitHubLink: UIButton!
     var imageBackground: UIImageView!
+    var lbLinkedinLink: UIButton!
     
     override func viewDidLoad() {
         
@@ -27,6 +28,7 @@ class PerfilViewController: UIViewController {
         setNamePerfil()
         setProfessionPerfil()
         setGitHubLink()
+        setLinkedinLink()
     }
     
     func createViewPerfil(){
@@ -35,10 +37,13 @@ class PerfilViewController: UIViewController {
     }
     
     func setBackground(){
-        imageBackground = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
-        imageBackground.image = #imageLiteral(resourceName: "swift-og")
-//        imageMyPhoto.alpha = 0.5
-        view.addSubview(imageBackground)
+        let gradient = CAGradientLayer()
+        let firstColor = #colorLiteral(red: 0.9815891385, green: 0.6906915307, blue: 0.2467031479, alpha: 1)
+        let secondColor = #colorLiteral(red: 1, green: 0.2072572708, blue: 0.1528325379, alpha: 1)
+        gradient.frame = view.bounds
+        gradient.colors = [firstColor.cgColor, secondColor.cgColor]
+
+        view.layer.insertSublayer(gradient, at: 0)
     }
     
     func setPhotoPerfil(){
@@ -67,20 +72,28 @@ class PerfilViewController: UIViewController {
     
     func setGitHubLink(){
         lbGitHubLink = UIButton(frame: CGRect(x: 0, y: perfilBackground.frame.maxY - (tabBarController?.tabBar.frame.size.height)! - 25, width: perfilBackground.frame.width, height: 40))
-        lbGitHubLink.setTitle("Click here for access my Github", for: .normal)
-        lbGitHubLink.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        lbGitHubLink.setTitle("Click here for access my Linkedin", for: .normal)
+        lbGitHubLink.addTarget(self, action: #selector(buttonLinkedin), for: .touchUpInside)
         perfilBackground.addSubview(lbGitHubLink)
+        
+    }
+    
+    func setLinkedinLink(){
+        lbLinkedinLink = UIButton(frame: CGRect(x: 0, y: lbGitHubLink.frame.minY - 40, width: perfilBackground.frame.width, height: 40))
+        lbLinkedinLink.setTitle("Click here for access my Github", for: .normal)
+        lbLinkedinLink.addTarget(self, action: #selector(buttonGithub), for: .touchUpInside)
+        perfilBackground.addSubview(lbLinkedinLink)
         
     }
     
     
     @objc func buttonLinkedin(sender: UIButton!) {
-        if let url = URL(string: "http://www.github.com/rafaellehn") {
+        if let url = URL(string: "https://www.linkedin.com/in/rafael-batista-silva-211362131/") {
             UIApplication.shared.open(url, options: [:])
         }
     }
     
-    @objc func buttonAction(sender: UIButton!) {
+    @objc func buttonGithub(sender: UIButton!) {
         if let url = URL(string: "http://www.github.com/rafaellehn") {
             UIApplication.shared.open(url, options: [:])
         }
