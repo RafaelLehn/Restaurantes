@@ -30,8 +30,8 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     @IBOutlet weak var collectionImages: UICollectionView!
     var Location: String!
     var loadview: UIView!
-    var schedule: Dictionary<String,Any> = [:]
-    var schedule2: Array<Any> = []
+    var scheduleDict: Dictionary<String,Any> = [:]
+    var scheduleArray: Array<Any> = []
     
     public var numberId: Int!
     var restaurantDetail = RestaurantDetailModel(Name: "", Category: "", Review: 0.0, Adress: "", Phone: "", About: "")
@@ -130,17 +130,10 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
                 self.restaurantDetail.About = (json["about"] as! String)
                 self.restaurantDetail.Phone = (json["phone"] as! String)
                 if (self.numberId == 1) {
-                    self.schedule2 = json["schedule"] as! Array<Any>
+                    self.scheduleArray = json["schedule"] as! Array<Any>
                 } else {
-                    self.schedule = json["schedule"] as! Dictionary<String, Any>
+                    self.scheduleDict = json["schedule"] as! Dictionary<String, Any>
                 }
-                
-                
-                print(self.schedule)
-                print(self.schedule2)
-                
-                let monday = self.schedule.keys
-                print(monday)
                 
               }
             DispatchQueue.main.async {
@@ -149,9 +142,6 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
                 self.setupStars()
                 self.setupInfo()
                 self.loadview.isHidden = true
-                for (key, value) in self.schedule{
-                    print("\(key) and \(value)")
-                }
             }
            } catch let error {
                 print(error.localizedDescription)
@@ -164,12 +154,24 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
         lbName.text = restaurantDetail.Name
         lbRating.text = String(restaurantDetail.Review)
         lbAbout.text = restaurantDetail.About
-        lbTime.text = "legal"
         lbPhone.text = restaurantDetail.Phone
         
         Location = restaurantDetail.Adress.replacingOccurrences(of: ",", with: ", ", options: .literal, range: nil)
         lbLocation.text = Location.replacingOccurrences(of: "Minas Gerais", with: "MG", options: .literal, range: nil)
         sharedButton.isEnabled = true
+        
+        if numberId == 1{
+            
+        } else {
+
+            var stringArray:[String] = []
+            for (key, value) in self.scheduleDict{
+                print("\(key) and \(value)")
+//                stringArray.append(value as! String)
+                
+            }
+            
+        }
     }
     
     private func setupReview(){
