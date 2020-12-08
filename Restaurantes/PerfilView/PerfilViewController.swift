@@ -16,9 +16,11 @@ class PerfilViewController: UIViewController {
     var imageMyPhoto: UIImageView!
     var lbMyName: UILabel!
     var lbMyProfession: UILabel!
-    var lbGitHubLink: UIButton!
+    var lbMyTelephone: UILabel!
+    var lbMyEmail: UILabel!
+    var btGitHubLink: UIButton!
     var imageBackground: UIImageView!
-    var lbLinkedinLink: UIButton!
+    var btLinkedinLink: UIButton!
     
     override func viewDidLoad() {
         
@@ -29,6 +31,9 @@ class PerfilViewController: UIViewController {
         setProfessionPerfil()
         setGitHubLink()
         setLinkedinLink()
+        setTelephone()
+        setEmail()
+        setLogoSwift()
     }
     
     func createViewPerfil(){
@@ -47,7 +52,7 @@ class PerfilViewController: UIViewController {
     }
     
     func setPhotoPerfil(){
-        imageMyPhoto = UIImageView(frame: CGRect(x: perfilBackground.frame.width/2 - 75, y: 30, width: 150, height: 240))
+        imageMyPhoto = UIImageView(frame: CGRect(x: perfilBackground.frame.width/2 - 120, y: 30, width: 240, height: 240))
         imageMyPhoto.image = #imageLiteral(resourceName: "myPhoto")
         perfilBackground.addSubview(imageMyPhoto)
     }
@@ -56,7 +61,7 @@ class PerfilViewController: UIViewController {
         lbMyName = UILabel(frame: CGRect(x: 0, y: imageMyPhoto.frame.maxY + 32, width: perfilBackground.frame.width, height: 40))
         lbMyName.text = "Rafael Batista Silva"
         lbMyName.textAlignment = .center
-        lbMyName.tintColor = .white
+        lbMyName.textColor = .white
         lbMyName.font = lbMyName.font.withSize(24)
         perfilBackground.addSubview(lbMyName)
     }
@@ -65,24 +70,50 @@ class PerfilViewController: UIViewController {
         lbMyProfession = UILabel(frame: CGRect(x: 0, y: lbMyName.frame.maxY + 16, width: perfilBackground.frame.width, height: 40))
         lbMyProfession.text = "Mobile Developer iOS"
         lbMyProfession.textAlignment = .center
-        lbMyProfession.tintColor = .white
+        lbMyProfession.textColor = .white
         lbMyProfession.font = lbMyProfession.font.withSize(24)
         perfilBackground.addSubview(lbMyProfession)
     }
     
+    func setTelephone(){
+        lbMyTelephone = UILabel(frame: CGRect(x: 0, y: lbMyProfession.frame.maxY + 16, width: perfilBackground.frame.width, height: 40))
+        lbMyTelephone.text = "+55 11 95890-3393"
+        lbMyTelephone.textAlignment = .center
+        lbMyTelephone.textColor = .white
+        lbMyTelephone.font = lbMyProfession.font.withSize(24)
+        perfilBackground.addSubview(lbMyTelephone)
+    }
+    
+    func setEmail(){
+        lbMyEmail = UILabel(frame: CGRect(x: 0, y: lbMyTelephone.frame.maxY + 16, width: perfilBackground.frame.width, height: 40))
+        lbMyEmail.text = "rafaellehn0@hotmail.com"
+        lbMyEmail.textAlignment = .center
+        lbMyEmail.textColor = .white
+        lbMyEmail.font = lbMyProfession.font.withSize(24)
+        perfilBackground.addSubview(lbMyEmail)
+    }
+    
+    func setLogoSwift(){
+        imageBackground = UIImageView(frame: CGRect(x: view.center.x - 100, y: lbMyEmail.frame.maxY + 32, width: 100, height:100))
+        imageBackground.image = #imageLiteral(resourceName: "swift-og")
+        perfilBackground.addSubview(imageBackground)
+    }
+    
     func setGitHubLink(){
-        lbGitHubLink = UIButton(frame: CGRect(x: 0, y: perfilBackground.frame.maxY - (tabBarController?.tabBar.frame.size.height)! - 25, width: perfilBackground.frame.width, height: 40))
-        lbGitHubLink.setTitle("Click here for access my Linkedin", for: .normal)
-        lbGitHubLink.addTarget(self, action: #selector(buttonLinkedin), for: .touchUpInside)
-        perfilBackground.addSubview(lbGitHubLink)
+        btGitHubLink = UIButton(frame: CGRect(x: 0, y: perfilBackground.frame.maxY - (tabBarController?.tabBar.frame.size.height)! - 25, width: perfilBackground.frame.width, height: 40))
+        btGitHubLink.setTitle("Click here for access my Linkedin", for: .normal)
+        btGitHubLink.addTarget(self, action: #selector(buttonLinkedin), for: .touchUpInside)
+        btGitHubLink.titleLabel?.font = btGitHubLink.titleLabel?.font.withSize(22)
+        perfilBackground.addSubview(btGitHubLink)
         
     }
     
     func setLinkedinLink(){
-        lbLinkedinLink = UIButton(frame: CGRect(x: 0, y: lbGitHubLink.frame.minY - 40, width: perfilBackground.frame.width, height: 40))
-        lbLinkedinLink.setTitle("Click here for access my Github", for: .normal)
-        lbLinkedinLink.addTarget(self, action: #selector(buttonGithub), for: .touchUpInside)
-        perfilBackground.addSubview(lbLinkedinLink)
+        btLinkedinLink = UIButton(frame: CGRect(x: 0, y: btGitHubLink.frame.minY - 40, width: perfilBackground.frame.width, height: 40))
+        btLinkedinLink.setTitle("Click here for access my Github", for: .normal)
+        btLinkedinLink.addTarget(self, action: #selector(buttonGithub), for: .touchUpInside)
+        btLinkedinLink.titleLabel?.font = btLinkedinLink.titleLabel?.font.withSize(22)
+        perfilBackground.addSubview(btLinkedinLink)
         
     }
     
