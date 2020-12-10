@@ -30,6 +30,8 @@ protocol StarProtocol {
 }
 class SelfStar: StarProtocol {
     
+    var otherList: Array<String> = ["Coworking", "Restaurante", "Padaria", "Sucos Naturais", "Cafeteria", "Barbearia", "Bares", "Supermercado"]
+    
     func selfNewStar(reviewNote: Double, firstStar: UIImageView, secondStar: UIImageView, thirdStar: UIImageView, fourtStar: UIImageView, fiveStar: UIImageView) {
         
         if reviewNote < 0.5 {
@@ -82,6 +84,41 @@ class SelfStar: StarProtocol {
              
          }
         
+    }
+    
+    func randomImage(imageCell: UIImageView, type: String){
+        imageCell.image = randomFactImage(type: type)
+    }
+    
+    func randomFactImage(type: String) -> UIImage {
+        switch type {
+        case "Coworking":
+            return UIImage(named: otherList[0])!
+            
+        case "Restaurante":
+            return UIImage(named: otherList[1])!
+            
+        case "Padaria":
+            return UIImage(named: otherList[2])!
+            
+        case "Sucos Naturais":
+            return UIImage(named: otherList[3])!
+            
+        case "Cafeteria":
+            return UIImage(named: otherList[4])!
+            
+        case "Barbearia":
+            return UIImage(named: otherList[5])!
+            
+        case "Bares":
+            return UIImage(named: otherList[6])!
+        
+        case "Supermercado":
+            return UIImage(named: otherList[7])!
+            
+        default:
+            return UIImage(named: otherList[2])!
+        }
     }
     
     

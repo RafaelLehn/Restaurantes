@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITabBarControllerDelegate, URLSessionDe
     let shape = CAShapeLayer()
     let trackLayer = CAShapeLayer()
     var restaurant = [RestaurantModel(name: "", Id: 0, Review: 0.0, type: "")]
-    
+    let star = SelfStar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -174,16 +174,13 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         cell.layer.masksToBounds = false
         let restaurantCell = cell as? CustomCollectionViewCell
         let rating = restaurant[indexPath.item].Review
-        if imageList.count < restaurant.count{
-            imageList.append(restaurantCell!.orderList)
-        }
+        star.randomImage(imageCell: restaurantCell!.imvRestaurant, type: restaurant[indexPath.item].type)
         restaurantCell?.lbNameRestaurant.text = restaurant[indexPath.item].name
         restaurantCell?.lbTypeRestaurant.text = restaurant[indexPath.item].type
         restaurantCell?.lbRatingRestaurant.text = String(rating)
         
         let ratingNumber = Double(rating)
         
-        let star = SelfStar()
         star.selfNewStar(reviewNote: ratingNumber, firstStar: restaurantCell!.star1, secondStar: restaurantCell!.star2, thirdStar: restaurantCell!.star3, fourtStar: restaurantCell!.star4, fiveStar: restaurantCell!.star5)
         
         return cell
@@ -191,7 +188,6 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailView = detailViewViewController()
-        detailView.bacana = UIImage(named: imageList[indexPath.row])!
         detailView.numberId = (indexPath.row + 1)
         detailView.modalPresentationStyle = .currentContext
         self.present(detailView, animated: true, completion: nil)

@@ -21,23 +21,9 @@ class CustomCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var star4: UIImageView!
     @IBOutlet weak var star5: UIImageView!
     
-    var imageList: Array<String> = ["image-1", "image-2", "image-3", "image-4", "image-5"]
-    public var orderList = String()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        randomImage()
-    }
-    
-    func randomImage(){
-        imvRestaurant.image = randomFactImage()
-    }
-    
-    func randomFactImage() -> UIImage {
-        let unsignedArrayCount = UInt32(imageList.count)
-        let unsignedRandomNumber = arc4random_uniform(unsignedArrayCount)
-        let randomNumber = Int(unsignedRandomNumber)
-        orderList.append(imageList[randomNumber])
-        return UIImage(named: imageList[randomNumber])!
     }
     
 }
