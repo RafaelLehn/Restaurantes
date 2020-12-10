@@ -32,6 +32,7 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     var loadview: UIView!
     var scheduleDict: Dictionary<String,Any> = [:]
     var scheduleArray: Array<Any> = []
+    let objects = ["image-1", "image-2", "image-3", "image-4", "image-5", "image-1", "image-2", "image-3", "image-4", "image-5"]
     
     public var numberId: Int!
     var restaurantDetail = RestaurantDetailModel(Name: "", Category: "", Review: 0.0, Adress: "", Phone: "", About: "")
@@ -46,11 +47,12 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        sharedButton.isEnabled = false
+        self.collectionImages.register(UINib(nibName: "PhotoCollectionCell", bundle: nil), forCellWithReuseIdentifier: "cellIdentifier")
         collectionImages.delegate = self
         collectionImages.dataSource = self
         
-        sharedButton.isEnabled = false
-        collectionImages.register(UINib(nibName: "CustomCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "restaurantCell")
         loadingView()
         servico()
         setupReview()
@@ -201,13 +203,21 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
         imvRestaurant.image = bacana
     }
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return self.objects.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionImages.dequeueReusableCell(withReuseIdentifier: "restaurantCell", for: indexPath) 
-        return cell
+
+          let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellIdentifier", for: indexPath) as! PhotoCollectionCell
+
+          //in this example I added a label named "title" into the MyCollectionCell class
+        cell.imageCell.image = UIImage(named: self.objects[indexPath.item])
+          return cell
     }
     
     @IBAction func backAction(_ sender: Any) {
