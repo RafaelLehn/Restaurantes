@@ -8,7 +8,7 @@
 
 import UIKit
 
-class detailViewViewController: UIViewController, URLSessionDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class detailViewController: UIViewController, URLSessionDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
     
     var panGestureRecognizer: UIPanGestureRecognizer?
@@ -33,11 +33,13 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     var scheduleDict: Dictionary<String,Any> = [:]
     var scheduleArray: Array<Any> = []
     let objects = ["image-1", "image-2", "image-3", "image-4", "image-5", "image-1", "image-2", "image-3", "image-4", "image-5"]
+    let typeBread = ["bolo-de-milho", "pao-australiano", "pao-baguete", "pao-caseiro", "pao-croissant", "pao-de-queijo", "pao-frances", "pao-sonho"]
     
     public var numberId: Int!
     var restaurantDetail = RestaurantDetailModel(Name: "", Category: "", Review: 0.0, Adress: "", Phone: "", About: "", type: "")
     public var bacana = UIImage()
     let star = SelfStar()
+    let detailViewModel = restaurantDetailModel()
     var perfilBackground: UIView!
     var btCLose: UIButton!
     var photoView: UIImageView!
@@ -150,6 +152,7 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
                 self.setupStars()
                 self.setupInfo()
                 self.loadview.isHidden = true
+                self.collectionImages.reloadData()
             }
            } catch let error {
                 print(error.localizedDescription)
@@ -159,7 +162,7 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     }
     
     private func setupInfo() {
-        star.randomImage(imageCell: imvRestaurant, type: restaurantDetail.type)
+        detailViewModel.randomImage(imageCell: imvRestaurant, type: restaurantDetail.type)
         lbName.text = restaurantDetail.Name
         lbRating.text = String(restaurantDetail.Review)
         lbAbout.text = restaurantDetail.About
@@ -214,21 +217,39 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.objects.count
+        switch restaurantDetail.type {
+        case "Padaria":
+            return self.typeBread.count
+        default:
+            return self.objects.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-          let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellIdentifier", for: indexPath) as! PhotoCollectionCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellIdentifier", for: indexPath) as! PhotoCollectionCell
 
-          //in this example I added a label named "title" into the MyCollectionCell class
-        cell.imageCell.image = UIImage(named: self.objects[indexPath.item])
-          return cell
+        switch restaurantDetail.type {
+        case "Padaria":
+            
+            cell.imageCell.image = UIImage(named: self.typeBread[indexPath.item])
+        default:
+            
+            cell.imageCell.image = UIImage(named: self.objects[indexPath.item])
+        }
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         openView()
-        openPhoto(imageFromCell: UIImage(named: self.objects[indexPath.item])!)
+        switch restaurantDetail.type {
+        case "Padaria":
+            
+            openPhoto(imageFromCell: UIImage(named: self.typeBread[indexPath.item])!)
+        default:
+            
+            openPhoto(imageFromCell: UIImage(named: self.objects[indexPath.item])!)
+        }
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.buttonClose(_:)))
         perfilBackground.addGestureRecognizer(tap)
         photoView.removeGestureRecognizer(tap)
@@ -248,6 +269,7 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
         photoView.layer.borderWidth = 10
         photoView.layer.borderColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         photoView.layer.masksToBounds = true
+        photoView.clipsToBounds = true
         photoView.layer.cornerRadius = 5
         view.addSubview(photoView)
     }

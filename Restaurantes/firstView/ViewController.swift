@@ -18,6 +18,7 @@ class ViewController: UIViewController, UITabBarControllerDelegate, URLSessionDe
     let trackLayer = CAShapeLayer()
     var restaurant = [RestaurantModel(name: "", Id: 0, Review: 0.0, type: "")]
     let star = SelfStar()
+    let detailViewModel = restaurantDetailModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -174,7 +175,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         cell.layer.masksToBounds = false
         let restaurantCell = cell as? CustomCollectionViewCell
         let rating = restaurant[indexPath.item].Review
-        star.randomImage(imageCell: restaurantCell!.imvRestaurant, type: restaurant[indexPath.item].type)
+        detailViewModel.randomImage(imageCell: restaurantCell!.imvRestaurant, type: restaurant[indexPath.item].type)
         restaurantCell?.lbNameRestaurant.text = restaurant[indexPath.item].name
         restaurantCell?.lbTypeRestaurant.text = restaurant[indexPath.item].type
         restaurantCell?.lbRatingRestaurant.text = String(rating)
@@ -187,7 +188,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailView = detailViewViewController()
+        let detailView = detailViewController()
         detailView.numberId = (indexPath.row + 1)
         detailView.modalPresentationStyle = .currentContext
         self.present(detailView, animated: true, completion: nil)
