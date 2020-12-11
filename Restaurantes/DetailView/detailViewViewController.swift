@@ -35,8 +35,12 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     let objects = ["image-1", "image-2", "image-3", "image-4", "image-5", "image-1", "image-2", "image-3", "image-4", "image-5"]
     
     public var numberId: Int!
-    var restaurantDetail = RestaurantDetailModel(Name: "", Category: "", Review: 0.0, Adress: "", Phone: "", About: "")
+    var restaurantDetail = RestaurantDetailModel(Name: "", Category: "", Review: 0.0, Adress: "", Phone: "", About: "", type: "")
     public var bacana = UIImage()
+    let star = SelfStar()
+    var perfilBackground: UIView!
+    var btCLose: UIButton!
+    var photoView: UIImageView!
     
     @IBOutlet weak var ivReview1: UIView!
     @IBOutlet weak var ivReview2: UIView!
@@ -131,6 +135,8 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
                 self.restaurantDetail.Adress = (json["adress"] as! String)
                 self.restaurantDetail.About = (json["about"] as! String)
                 self.restaurantDetail.Phone = (json["phone"] as! String)
+                self.restaurantDetail.type = (json["type"] as! String)
+                
                 if (self.numberId == 1) {
                     self.scheduleArray = json["schedule"] as! Array<Any>
                 } else {
@@ -153,6 +159,7 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     }
     
     private func setupInfo() {
+        star.randomImage(imageCell: imvRestaurant, type: restaurantDetail.type)
         lbName.text = restaurantDetail.Name
         lbRating.text = String(restaurantDetail.Review)
         lbAbout.text = restaurantDetail.About
@@ -195,7 +202,6 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
     func setupStars(){
         var ratingNumber = restaurantDetail.Review
         ratingNumber.round()
-        let star = SelfStar()
         star.selfNewStar(reviewNote: ratingNumber, firstStar: star1, secondStar: star2, thirdStar: star3, fourtStar: star4, fiveStar: star5)
     }
     
@@ -218,6 +224,42 @@ class detailViewViewController: UIViewController, URLSessionDelegate, UICollecti
           //in this example I added a label named "title" into the MyCollectionCell class
         cell.imageCell.image = UIImage(named: self.objects[indexPath.item])
           return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        openView()
+        openPhoto(imageFromCell: UIImage(named: self.objects[indexPath.item])!)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.buttonClose(_:)))
+        perfilBackground.addGestureRecognizer(tap)
+        photoView.removeGestureRecognizer(tap)
+    }
+    
+    func openView(){
+        perfilBackground = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height));
+        perfilBackground.backgroundColor = .gray
+        perfilBackground.alpha = 0.7
+        view.addSubview(self.perfilBackground)
+    }
+    
+    func openPhoto(imageFromCell: UIImage){
+        photoView = UIImageView(frame: CGRect(x: perfilBackground.frame.midX, y: perfilBackground.frame.midY, width: 250, height: 250));
+        photoView.center = perfilBackground.center
+        photoView.image = imageFromCell
+        photoView.layer.borderWidth = 10
+        photoView.layer.borderColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        photoView.layer.masksToBounds = true
+        photoView.layer.cornerRadius = 5
+        view.addSubview(photoView)
+    }
+    
+    @objc func buttonClose(_ sender: UITapGestureRecognizer) {
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseIn, animations: {
+            self.perfilBackground.alpha = 0
+            self.photoView.alpha = 0
+        }) { _ in
+            self.perfilBackground.removeFromSuperview()
+            self.photoView.removeFromSuperview()
+        }
     }
     
     @IBAction func backAction(_ sender: Any) {

@@ -23,6 +23,7 @@ struct RestaurantDetailModel {
     var Adress: String
     var Phone: String
     var About: String
+    var type: String
 }
 
 protocol StarProtocol {
