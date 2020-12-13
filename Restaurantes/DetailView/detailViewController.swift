@@ -32,17 +32,13 @@ class detailViewController: UIViewController, URLSessionDelegate, UICollectionVi
     var loadview: UIView!
     var scheduleDict: Dictionary<String,Any> = [:]
     var scheduleArray: Array<Any> = []
-    let objects = ["image-1", "image-2", "image-3", "image-4", "image-5", "image-1", "image-2", "image-3", "image-4", "image-5"]
-    let typeBread = ["bolo-de-milho", "pao-australiano", "pao-baguete", "pao-caseiro", "pao-croissant", "pao-de-queijo", "pao-frances", "pao-sonho"]
     
     public var numberId: Int!
     var restaurantDetail = RestaurantDetailModel(Name: "", Category: "", Review: 0.0, Adress: "", Phone: "", About: "", type: "")
     public var bacana = UIImage()
     let star = SelfStar()
     let detailViewModel = restaurantDetailModel()
-    var perfilBackground: UIView!
-    var btCLose: UIButton!
-    var photoView: UIImageView!
+    let typeModel = restaurantDetailTypeModel()
     
     @IBOutlet weak var ivReview1: UIView!
     @IBOutlet weak var ivReview2: UIView!
@@ -217,71 +213,21 @@ class detailViewController: UIViewController, URLSessionDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch restaurantDetail.type {
-        case "Padaria":
-            return self.typeBread.count
-        default:
-            return self.objects.count
-        }
+        
+        return typeModel.photoCount(type: restaurantDetail.type)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellIdentifier", for: indexPath) as! PhotoCollectionCell
 
-        switch restaurantDetail.type {
-        case "Padaria":
-            
-            cell.imageCell.image = UIImage(named: self.typeBread[indexPath.item])
-        default:
-            
-            cell.imageCell.image = UIImage(named: self.objects[indexPath.item])
-        }
+        typeModel.photoCell(cell: cell, type: restaurantDetail.type, index: indexPath)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        openView()
-        switch restaurantDetail.type {
-        case "Padaria":
-            
-            openPhoto(imageFromCell: UIImage(named: self.typeBread[indexPath.item])!)
-        default:
-            
-            openPhoto(imageFromCell: UIImage(named: self.objects[indexPath.item])!)
-        }
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.buttonClose(_:)))
-        perfilBackground.addGestureRecognizer(tap)
-        photoView.removeGestureRecognizer(tap)
-    }
-    
-    func openView(){
-        perfilBackground = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height));
-        perfilBackground.backgroundColor = .gray
-        perfilBackground.alpha = 0.7
-        view.addSubview(self.perfilBackground)
-    }
-    
-    func openPhoto(imageFromCell: UIImage){
-        photoView = UIImageView(frame: CGRect(x: perfilBackground.frame.midX, y: perfilBackground.frame.midY, width: 250, height: 250));
-        photoView.center = perfilBackground.center
-        photoView.image = imageFromCell
-        photoView.layer.borderWidth = 10
-        photoView.layer.borderColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        photoView.layer.masksToBounds = true
-        photoView.clipsToBounds = true
-        photoView.layer.cornerRadius = 5
-        view.addSubview(photoView)
-    }
-    
-    @objc func buttonClose(_ sender: UITapGestureRecognizer) {
-        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseIn, animations: {
-            self.perfilBackground.alpha = 0
-            self.photoView.alpha = 0
-        }) { _ in
-            self.perfilBackground.removeFromSuperview()
-            self.photoView.removeFromSuperview()
-        }
+        typeModel.openView(view: view)
+        typeModel.openPhotoType(type: restaurantDetail.type, index: indexPath, view: view)
     }
     
     @IBAction func backAction(_ sender: Any) {
