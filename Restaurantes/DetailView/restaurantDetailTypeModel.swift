@@ -16,6 +16,7 @@ class restaurantDetailTypeModel {
     var typeRestaurant = ["almondegas", "camarao", "costela", "feijoada", "lasanha", "macarrao", "parmegiana", "picanha"]
     var typeJuice = ["sucos", "maracuja", "laranja", "goiaba", "beterraba", "limao", "morango"]
     var typeBar = ["gyn", "redlabel", "whisky", "caipirinha", "martini"]
+    var typeCoffeShop = ["cafe", "latte", "milkbanana", "milkshake", "cappuccino"]
     
     var perfilBackground: UIView!
     var btCLose: UIButton!
@@ -35,6 +36,9 @@ class restaurantDetailTypeModel {
         case "Bares":
             typeBar.shuffle()
             return typeBar.count
+        case "Cafeteria":
+            typeCoffeShop.shuffle()
+            return typeCoffeShop.count
         default:
             return objects.count
         }
@@ -53,6 +57,9 @@ class restaurantDetailTypeModel {
             
         case "Bares":
             cell.imageCell.image = UIImage(named: self.typeBar[index.item])
+            
+        case "Cafeteria":
+            cell.imageCell.image = UIImage(named: self.typeCoffeShop[index.item])
         
         default:
             
@@ -73,6 +80,9 @@ class restaurantDetailTypeModel {
             
         case "Bares":
             openPhoto(imageFromCell: UIImage(named: self.typeBar[index.item])!, view: view)
+        
+        case "Cafeteria":
+            openPhoto(imageFromCell: UIImage(named: self.typeCoffeShop[index.item])!, view: view)
             
         default:
             
