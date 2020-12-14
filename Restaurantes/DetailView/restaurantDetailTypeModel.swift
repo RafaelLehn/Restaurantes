@@ -12,7 +12,10 @@ import UIKit
 class restaurantDetailTypeModel {
     
     let objects = ["image-1", "image-2", "image-3", "image-4", "image-5", "image-1", "image-2", "image-3", "image-4", "image-5"]
-    let typeBread = ["bolo-de-milho", "pao-australiano", "pao-baguete", "pao-caseiro", "pao-croissant", "pao-de-queijo", "pao-frances", "pao-sonho"]
+    var typeBread = ["bolo-de-milho", "pao-australiano", "pao-baguete", "pao-caseiro", "pao-croissant", "pao-de-queijo", "pao-frances", "pao-sonho"]
+    var typeRestaurant = ["almondegas", "camarao", "costela", "feijoada", "lasanha", "macarrao", "parmegiana", "picanha"]
+    var typeJuice = ["sucos", "maracuja", "laranja", "goiaba", "beterraba", "limao", "morango"]
+    var typeBar = ["gyn", "redlabel", "whisky", "caipirinha", "martini"]
     
     var perfilBackground: UIView!
     var btCLose: UIButton!
@@ -21,7 +24,17 @@ class restaurantDetailTypeModel {
     func photoCount(type:String) -> Int {
         switch type {
         case "Padaria":
+            typeBread.shuffle()
             return typeBread.count
+        case "Restaurante":
+            typeRestaurant.shuffle()
+            return typeRestaurant.count
+        case "Sucos Naturais":
+            typeJuice.shuffle()
+            return typeJuice.count
+        case "Bares":
+            typeBar.shuffle()
+            return typeBar.count
         default:
             return objects.count
         }
@@ -30,8 +43,17 @@ class restaurantDetailTypeModel {
     func photoCell(cell: PhotoCollectionCell, type:String, index: IndexPath){
         switch type {
         case "Padaria":
-            
             cell.imageCell.image = UIImage(named: self.typeBread[index.item])
+            
+        case "Restaurante":
+            cell.imageCell.image = UIImage(named: self.typeRestaurant[index.item])
+            
+        case "Sucos Naturais":
+            cell.imageCell.image = UIImage(named: self.typeJuice[index.item])
+            
+        case "Bares":
+            cell.imageCell.image = UIImage(named: self.typeBar[index.item])
+        
         default:
             
             cell.imageCell.image = UIImage(named: self.objects[index.item])
@@ -41,8 +63,17 @@ class restaurantDetailTypeModel {
     func openPhotoType(type:String, index: IndexPath, view: UIView){
         switch type {
         case "Padaria":
-            
             openPhoto(imageFromCell: UIImage(named: self.typeBread[index.item])!, view: view)
+        
+        case "Restaurante":
+            openPhoto(imageFromCell: UIImage(named: self.typeRestaurant[index.item])!, view: view)
+        
+        case "Sucos Naturais":
+            openPhoto(imageFromCell: UIImage(named: self.typeJuice[index.item])!, view: view)
+            
+        case "Bares":
+            openPhoto(imageFromCell: UIImage(named: self.typeBar[index.item])!, view: view)
+            
         default:
             
             openPhoto(imageFromCell: UIImage(named: self.objects[index.item])!, view: view)
@@ -79,7 +110,7 @@ class restaurantDetailTypeModel {
     }
     
     @objc func fadeIn(){
-        UIView.animate(withDuration: 0.3, delay: 0.5, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.2, delay: 0.5, options: .curveEaseIn, animations: {
             self.perfilBackground.alpha = 0.7
             self.photoView?.alpha = 1.0
         })
@@ -87,7 +118,7 @@ class restaurantDetailTypeModel {
     
     
     @objc func buttonClose(_ sender: UITapGestureRecognizer) {
-        UIView.animate(withDuration: 0.3, delay: 0.5, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.2, delay: 0.5, options: .curveEaseIn, animations: {
             self.perfilBackground.alpha = 0
             self.photoView.alpha = 0
         }) { _ in
