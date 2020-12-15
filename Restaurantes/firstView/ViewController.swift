@@ -133,6 +133,7 @@ class ViewController: UIViewController, UITabBarControllerDelegate, URLSessionDe
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
            _ = tabBarController.selectedIndex
+        self.dismiss(animated: true, completion: nil)
         
     }
 }

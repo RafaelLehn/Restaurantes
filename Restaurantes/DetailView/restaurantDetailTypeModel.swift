@@ -19,7 +19,6 @@ class restaurantDetailTypeModel {
     var typeCoffeShop = ["cafe", "latte", "milkbanana", "milkshake", "cappuccino"]
     
     var perfilBackground: UIView!
-    var btCLose: UIButton!
     var photoView: UIImageView!
     
     func photoCount(type:String) -> Int {
