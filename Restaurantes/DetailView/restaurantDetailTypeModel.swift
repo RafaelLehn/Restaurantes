@@ -17,27 +17,52 @@ class restaurantDetailTypeModel {
     var typeJuice = ["sucos", "maracuja", "laranja", "goiaba", "beterraba", "limao", "morango"]
     var typeBar = ["gyn", "redlabel", "whisky", "caipirinha", "martini"]
     var typeCoffeShop = ["cafe", "latte", "milkbanana", "milkshake", "cappuccino"]
+    var typeOrganic = ["organicos-1", "organicos-2", "organicos-3", "organicos-4", "organicos-5"]
+    var typeBarber = ["barber-1", "barber-2", "barber-3", "barber-4", "barber-5"]
+    var typeCoworking = ["cowo-1", "cowo-2", "cowo-3", "cowo-4", "cowo-5"]
+    var typeMarket = ["mercado-1", "mercado-2", "mercado-3", "mercado-4", "mercado-5"]
     
     var perfilBackground: UIView!
     var photoView: UIImageView!
     
     func photoCount(type:String) -> Int {
         switch type {
+        case "Coworking":
+            typeCoworking.shuffle()
+            return typeCoworking.count
+            
         case "Padaria":
             typeBread.shuffle()
             return typeBread.count
+            
         case "Restaurante":
             typeRestaurant.shuffle()
             return typeRestaurant.count
+            
         case "Sucos Naturais":
             typeJuice.shuffle()
             return typeJuice.count
+            
         case "Bares":
             typeBar.shuffle()
             return typeBar.count
+            
         case "Cafeteria":
             typeCoffeShop.shuffle()
             return typeCoffeShop.count
+            
+        case "Produtos naturais":
+            typeOrganic.shuffle()
+            return typeOrganic.count
+            
+        case "Barbearia":
+            typeBarber.shuffle()
+            return typeBarber.count
+        
+        case "Supermercado":
+            typeMarket.shuffle()
+            return typeMarket.count
+            
         default:
             return objects.count
         }
@@ -45,6 +70,9 @@ class restaurantDetailTypeModel {
     
     func photoCell(cell: PhotoCollectionCell, type:String, index: IndexPath){
         switch type {
+        case "Coworking":
+            cell.imageCell.image = UIImage(named: self.typeCoworking[index.item])
+            
         case "Padaria":
             cell.imageCell.image = UIImage(named: self.typeBread[index.item])
             
@@ -60,6 +88,15 @@ class restaurantDetailTypeModel {
         case "Cafeteria":
             cell.imageCell.image = UIImage(named: self.typeCoffeShop[index.item])
         
+        case "Produtos naturais":
+            cell.imageCell.image = UIImage(named: self.typeOrganic[index.item])
+        
+        case "Barbearia":
+            cell.imageCell.image = UIImage(named: self.typeBarber[index.item])
+        
+        case "Supermercado":
+            cell.imageCell.image = UIImage(named: self.typeMarket[index.item])
+        
         default:
             
             cell.imageCell.image = UIImage(named: self.objects[index.item])
@@ -68,6 +105,9 @@ class restaurantDetailTypeModel {
     
     func openPhotoType(type:String, index: IndexPath, view: UIView){
         switch type {
+        case "Coworking":
+            openPhoto(imageFromCell: UIImage(named: self.typeCoworking[index.item])!, view: view)
+        
         case "Padaria":
             openPhoto(imageFromCell: UIImage(named: self.typeBread[index.item])!, view: view)
         
@@ -83,6 +123,16 @@ class restaurantDetailTypeModel {
         case "Cafeteria":
             openPhoto(imageFromCell: UIImage(named: self.typeCoffeShop[index.item])!, view: view)
             
+        case "Produtos naturais":
+            openPhoto(imageFromCell: UIImage(named: self.typeOrganic[index.item])!, view: view)
+        
+        case "Barbearia":
+            openPhoto(imageFromCell: UIImage(named: self.typeBarber[index.item])!, view: view)
+        
+        case "Supermercado":
+            openPhoto(imageFromCell: UIImage(named: self.typeMarket[index.item])!, view: view)
+            
+
         default:
             
             openPhoto(imageFromCell: UIImage(named: self.objects[index.item])!, view: view)
